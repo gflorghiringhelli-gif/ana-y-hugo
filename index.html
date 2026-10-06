@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+   <title>Ana & Hugo · Nuestra Boda</title>
+   
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Montserrat:wght@300;400;500;600&family=Pinyon+Script&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   
+   <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+   <div id="toast" class="toast">¡Información copiada! 📋✨</div>
+
+   <canvas id="petalsCanvas"></canvas>
+
+   <audio id="musicaInvitacion" preload="auto" loop>
+      <source src="img/musica.mp3" type="audio/mpeg">
+   </audio>
+
+   <div id="music-toggle" class="music-btn" onclick="toggleMusic()">
+       <i class="fa-solid fa-music"></i>
+   </div>
+   
+   <!-- INTRO: SOBRE ESTÁTICO -->
+   <div id="contenedor-principal" onclick="activarInvitacion()">
+       <img src="img/sobre.png" alt="Sobre" id="imgSobreEstetica">
+       <video id="videoSobre" playsinline muted preload="auto">
+           <source src="img/1.mp4" type="video/mp4">
+       </video>
+       <div id="capa-boton">
+           <div class="boton-rosa-inicio" id="btn-toca-abrir">TOCÁ EL SOBRE PARA ABRIR</div>
+       </div>
+   </div>
+
+   <!-- INVITACIÓN WEB EDITORIAL -->
+   <div id="seccion-final" class="oculto">
+
+       <div class="bloque-papel-textura">
+           
+           <header class="hero-portada reveal">
+               <div class="portada-frame-inner">
+                   <img src="img/portada.png" onerror="this.src='https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=80'" alt="Ana y Hugo" class="portada-img">
+                   <div class="portada-overlay">
+                       <h1 class="main-title-portada">Ana & Hugo</h1>
+                       <p class="title-sub-portada">NUESTRA BODA</p>
+                   </div>
+               </div>
+           </header>
+
+           <section class="section-pad reveal text-center" id="std-section">
+               <h2 class="editorial-heading mt-10">SAVE THE DATE</h2>
+               <p class="section-sub-label">Raspá cada círculo para descubrir la fecha</p>
+
+               <div class="scratch-circles-wrapper mt-25" id="circlesWrapper">
+                   <div class="circle-scratch-card">
+                       <div class="circle-reveal-content">
+                           <span class="circle-number">21</span>
+                           <span class="circle-label">DÍA</span>
+                       </div>
+                       <canvas class="circle-canvas" data-index="0" data-label="DÍA"></canvas>
+                   </div>
+                   <div class="circle-scratch-card">
+                       <div class="circle-reveal-content">
+                           <span class="circle-number">11</span>
+                           <span class="circle-label">MES</span>
+                       </div>
+                       <canvas class="circle-canvas" data-index="1" data-label="MES"></canvas>
+                   </div>
+                   <div class="circle-scratch-card">
+                       <div class="circle-reveal-content">
+                           <span class="circle-number">2026</span>
+                           <span class="circle-label">AÑO</span>
+                       </div>
+                       <canvas class="circle-canvas" data-index="2" data-label="AÑO"></canvas>
+                   </div>
+               </div>
+
+               <div class="countdown-card" id="countdownCard">
+                   <p class="countdown-title">FALTAN POCOS DÍAS</p>
+                   <div class="countdown-boxes">
+                       <div class="cd-box"><span id="cd-days">00</span><p>Días</p></div>
+                       <div class="cd-sep">:</div>
+                       <div class="cd-box"><span id="cd-hours">00</span><p>Hs</p></div>
+                       <div class="cd-sep">:</div>
+                       <div class="cd-box"><span id="cd-mins">00</span><p>Min</p></div>
+                       <div class="cd-sep">:</div>
+                       <div class="cd-box"><span id="cd-secs">00</span><p>Seg</p></div>
+                   </div>
+               </div>
+           </section>
+
+           <section class="section-pad reveal">
+               <div class="invitarte-card">
+                   <p class="blessing-text">Con la bendición de Dios y de nuestros padres</p>
+                   
+                   <div class="parents-container mt-20">
+                       <div class="parent-col">
+                           <p class="parent-role">PADRES DE LA NOVIA</p>
+                           <p class="parent-names">Fernando Giménez<br>& Petrona Candia de Giménez</p>
+                       </div>
+                       <div class="parents-divider"></div>
+                       <div class="parent-col">
+                           <p class="parent-role">PADRES DEL NOVIO</p>
+                           <p class="parent-names">Bernardino Benítez González<br>& Ángela Maria Meza de Benítez</p>
+                       </div>
+                   </div>
+
+                   <p class="invite-quote mt-25">
+                       Tenemos el honor de invitarte a compartir con nosotros el día en que uniremos nuestras vidas para siempre.
+                   </p>
+               </div>
+           </section>
+
+           <!-- GALERÍA DE FOTOS (CARRUSEL) -->
+           <section class="section-pad reveal">
+               <h2 class="editorial-heading">NUESTROS MOMENTOS</h2>
+               <p class="title-sub-cursive">Deslizá para ver las fotos</p>
+
+               <div class="gallery-slider-wrapper mt-20">
+                   <div class="gallery-slider" id="gallerySlider">
+                       <div class="slide-item"><img src="img/foto1.png" onerror="this.src='https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=600&q=80'" alt="Foto 1"></div>
+                       <div class="slide-item"><img src="img/foto2.png" onerror="this.src='https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=600&q=80'" alt="Foto 2"></div>
+                       <div class="slide-item"><img src="img/foto3.png" onerror="this.src='https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=600&q=80'" alt="Foto 3"></div>
+                       <div class="slide-item"><img src="img/foto4.png" onerror="this.src='https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=600&q=80'" alt="Foto 4"></div>
+                   </div>
+                   <div class="slider-hint mt-10">
+                       <i class="fa-solid fa-arrow-left-long"></i> Deslizá <i class="fa-solid fa-arrow-right-long"></i>
+                   </div>
+               </div>
+           </section>
+
+           <section class="section-pad location-section-spacious reveal">
+               <h2 class="editorial-heading">UBICACIONES</h2>
+               <p class="title-sub-cursive">Dónde celebramos</p>
+
+               <div class="venue-card-watercolor mt-25">
+                   <div class="venue-icon-wrap"><i class="fa-solid fa-church"></i></div>
+                   <h3 class="venue-title">CEREMONIA RELIGIOSA</h3>
+                   <p class="venue-time">19:30 HS</p>
+                   <p class="venue-desc">Parroquia San Lucas<br>Av. Amado Benítez Gamarra, Ciudad del Este</p>
+                   <div class="btn-group-center mt-15">
+                       <a href="https://maps.google.com/?q=Parroquia+San+Lucas+Ciudad+del+Este" target="_blank" class="btn btn-outline-dark"><i class="fa-solid fa-location-dot"></i> Google Maps</a>
+                   </div>
+               </div>
+
+               <div class="venue-card-watercolor mt-35">
+                   <div class="venue-icon-wrap"><i class="fa-solid fa-wine-glass"></i></div>
+                   <h3 class="venue-title">RECEPCIÓN & FIESTA</h3>
+                   <p class="venue-time">21:00 HS</p>
+                   <p class="venue-desc">Valentina Eventos<br>Km 9 Monday, Ciudad del Este</p>
+                   <div class="btn-group-center mt-15">
+                       <a href="https://maps.google.com/maps?q=Valentina+Eventos+Km+9+Monday+Ciudad+del+Este" target="_blank" class="btn btn-outline-dark"><i class="fa-solid fa-location-dot"></i> Google Maps</a>
+                   </div>
+               </div>
+           </section>
+
+           <!-- DRESS CODE -->
+           <section class="section-pad reveal text-center">
+               <div class="dress-icon-head mt-10"><i class="fa-solid fa-user-tie"></i></div>
+               <h2 class="editorial-heading mt-10">DRESS CODE</h2>
+               <p class="title-sub-cursive">Código de Vestimenta</p>
+
+               <p class="dress-code-subtitle mt-10">ELEGANTE</p>
+
+               <div class="notice-box-paper mt-20">
+                   <p>Por favor evitar vestidos en color <strong>blanco o crema claro</strong>.</p>
+               </div>
+           </section>
+
+           <!-- DETALLES DE LA BODA -->
+           <section class="section-pad reveal text-center">
+               <h2 class="editorial-heading">DETALLES DE LA BODA</h2>
+               <p class="title-sub-cursive">Para tener en cuenta</p>
+
+               <div class="details-grid mt-20">
+                   <div class="detail-item">
+                       <i class="fa-regular fa-clock detail-icon"></i>
+                       <h4>LLEGAR PUNTUAL</h4>
+                       <p>Les pedimos puntualidad para compartir juntos cada segundo desde la ceremonia.</p>
+                   </div>
+                   <div class="detail-item">
+                       <i class="fa-solid fa-child-reaching detail-icon"></i>
+                       <h4>SOLO ADULTOS</h4>
+                       <p>Queremos que los padres disfruten de una noche libre de baile y relajación.</p>
+                   </div>
+               </div>
+           </section>
+
+           <!-- SUGERENCIA DE REGALO CON IMAGEN DE SOBRE -->
+           <section class="section-pad reveal">
+               <div class="gift-envelope-card-paper">
+                   <div class="gift-envelope-img-wrap">
+                       <img src="img/sobre-verde-abierto.png" alt="Sobre Regalo" class="gift-envelope-img">
+                   </div>
+                   <h2 class="editorial-heading mt-10">SUGERENCIA DE REGALO</h2>
+                   <p class="title-sub-cursive">Un detalle con los novios</p>
+                   <p class="gift-text-paper mt-10">
+                       Su presencia es nuestro mejor regalo. Si desean realizarnos un obsequio, pueden hacerlo vía transferencia bancaria:
+                   </p>
+                   <button type="button" class="btn btn-editorial mt-20" onclick="toggleGiftModal()">VER DATOS BANCARIOS</button>
+
+                   <div id="gift-modal" class="gift-modal-box-paper hidden-element mt-15">
+                       <p><strong>Entidad:</strong> ueno bank</p>
+                       <p><strong>Titular:</strong> Hugo Gustavo Benitez Meza</p>
+                       <p><strong>C.I.:</strong> 5198933</p>
+                       <p><strong>N° de Cuenta:</strong> 6192998383</p>
+                       
+                       <button type="button" class="btn btn-sm btn-editorial mt-10" onclick="copyCuenta()">
+                           <i class="fa-regular fa-copy"></i> Copiar N° de Cuenta (6192998383)
+                       </button>
+                   </div>
+               </div>
+           </section>
+
+       </div>
+
+       <!-- CONFIRMACIÓN DE ASISTENCIA -->
+       <div class="bloque-papel-textura">
+           <section class="section-pad reveal text-center">
+               <h2 class="editorial-heading">CONFIRMACIÓN DE ASISTENCIA</h2>
+               <p class="title-sub-cursive">Esperamos contar con vos</p>
+               <p class="rsvp-limit-text mt-10">Confirmar hasta el 10 de noviembre</p>
+
+               <a href="https://wa.me/595973845550?text=¡Hola!%20Confirmo%20mi%20asistencia%20a%20la%20boda%20de%20Ana%20y%20Hugo%20✨" class="btn btn-editorial mt-25" target="_blank">
+                   <i class="fa-brands fa-whatsapp"></i> CONFIRMAR POR WHATSAPP
+               </a>
+           </section>
+       </div>
+
+       <!-- CIERRE Y FIRMA (FONDO VERDE) -->
+       <div class="bloque-verde-oliva">
+           <section class="section-pad reveal text-center">
+               <div class="bible-quote-box">
+                   <p class="bible-text">"Y sobre todas estas cosas, vístanse de amor, que es el vínculo perfecto."</p>
+                   <span class="bible-ref">Colosenses 3:14</span>
+               </div>
+
+               <div class="farewell-signature mt-35">
+                   <p class="farewell-with-love">Con cariño,</p>
+                   <h2 class="farewell-couple">Ana & Hugo</h2>
+               </div>
+           </section>
+
+           <footer class="editorial-footer">
+               <p>© GHISA DIGITAL · DESIGN STUDIO</p>
+           </footer>
+       </div>
+
+   </div>
+
+   <script src="script.js"></script>
+</body>
+</html>
