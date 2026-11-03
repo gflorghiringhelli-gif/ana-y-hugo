@@ -331,9 +331,9 @@ function toggleGiftModal() {
   modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
 }
 
-function copyCuenta() {
-  navigator.clipboard.writeText('6192998383');
-  mostrarToast('¡N° de cuenta copiado al portapapeles! 📋✨');
+function copyAlias() {
+  navigator.clipboard.writeText('+595983763221');
+  mostrarToast('¡N° de Alias copiado al portapapeles! 📋✨');
 }
 
 function mostrarToast(txt) {
